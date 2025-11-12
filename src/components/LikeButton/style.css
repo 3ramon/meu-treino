@@ -1,0 +1,16 @@
+.btnLol {
+    background-color: #f9fd00;
+
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0%;
+
+    margin-top: 20px;
+    color: #817906;
+    width: 120px;
+    height: 52px;
+    border-radius: 5px;
+    border: 2px solid #e4c412;
+}

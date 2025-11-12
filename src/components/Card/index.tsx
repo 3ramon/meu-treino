@@ -7,11 +7,13 @@ type cardProps = {
 };
 
 export function CardLol({ imageFull, name, title }: cardProps) {
+
+    
     return (
         <div className="cardContainerLol">
             <div className="name">{name}</div>
-            <img src={imageFull} className="imgLol" />
-            <div className="title">{title}</div>
+            
+            <div className="title">ola</div>
         </div>
     );
 }

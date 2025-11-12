@@ -1,6 +1,7 @@
 import React from "react";
 import { CardLol } from "./components/Card";
 import { Button } from "./components/Button";
+import { LikeButton } from "./components/LikeButton";
 
 import primeiro from "./assets/primeiro.svg";
 import segundo from "./assets/segundo.svg";
@@ -46,7 +47,7 @@ function App() {
 
     return (
         <div className="App">
-            <div>
+            {/* <div>
                 <p>Advinhe o Hp de algum campeão!</p>
                 <input type="number" value={hpText} onChange={handleChange} />
             </div>
@@ -57,9 +58,16 @@ function App() {
                     setChampionHP([]);
                     setHpText(0);
                 }}
+            /> */}
+            <label>Ola</label>
+
+            <LikeButton
+                name={"Likes"}
+                contagemInicial={10}
+                // onClick={() => {}}
             />
 
-            {visible &&
+            {/* {visible &&
                 (championHP.length > 0 ? (
                     <div className="cardsContainers">
                         {championHP.map((champion: any) => (
@@ -83,7 +91,7 @@ function App() {
                         title={champion.title}
                     />
                 ))}
-            </div>
+            </div> */}
         </div>
     );
 }
