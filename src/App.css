@@ -1,12 +1,69 @@
 .App {
-  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-.cardsContainers {
-  display: grid; 
-  grid-template-columns: repeat(4, 1fr);
+.inputItens {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
 }
 
+.inputItens input {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  flex: 1;
+  font-size: 16px;
+}
 
+.inputItens input:focus {
+  outline: none;
+  border-color: #007bff;
+}
 
+.inputItens button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
 
+.inputItens button:hover {
+  background-color: #0056b3;
+}
+
+.inputItens button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.todo-list {
+  margin-top: 20px;
+}
+
+.todo-list > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.todo-list label {
+  cursor: pointer;
+  font-size: 16px;
+  flex: 1;
+}
+
+.todo-list input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
