@@ -36,3 +36,72 @@ Tipagem do State: Ao usar useState, garanta que o TS saiba que likes é um numbe
 
 Evento: O botão deve ter um onClick que incrementa o state likes.
 
+
+################################
+
+Exercícios de Fixação (React + TypeScript + Context)
+
+Aqui estão 3 desafios para você aplicar no seu projeto meu-treino.
+
+Desafio 1: "Não me esqueça!" (Persistência com LocalStorage)
+
+O Problema: Atualmente, se você preencher o formulário, "logar" e atualizar a página (F5), o usuário some e volta a ser "Visitante".
+O Objetivo: Fazer os dados do usuário sobreviverem ao F5.
+
+Instruções:
+
+Abra o arquivo src/contexts/UserContext.tsx.
+
+No UserProvider, use o useEffect para ler o localStorage assim que o componente montar.
+
+Se houver um usuário salvo lá, atualize o estado user.
+
+Modifique a função salvarUsuario para também salvar no localStorage.
+
+Modifique a função logout para remover o item do localStorage.
+
+
+Desafio 2: Rota Protegida (Segurança)
+
+O Problema: Hoje, qualquer pessoa pode digitar /usuario/Ramon na URL e ver a página de detalhes, mesmo sem ter preenchido o formulário.
+O Objetivo: Criar um componente que "bloqueia" o acesso se o usuário não estiver logado.
+
+Instruções:
+
+Crie um componente chamado ProtectedRoute (pode ser em src/components/ProtectedRoute/index.tsx).
+
+Esse componente deve receber children (o conteúdo que ele protege).
+
+Dentro dele, use o useContext para ver se user é null.
+
+Se user for null, redirecione para o formulário usando o componente <Navigate to="/form-user" /> do react-router-dom.
+
+Se user existir, retorne o children.
+
+Aplique isso no App.tsx envolvendo a rota de detalhes.
+
+Desafio 3: O Hook useForm (Limpeza de Código)
+
+O Problema: No FormUser, temos muita lógica repetitiva para lidar com inputs (handleChange, estados separados, etc).
+O Objetivo: Criar um Hook customizado genérico para formulários.
+
+Instruções:
+
+Crie uma pasta src/hooks e um arquivo useForm.ts.
+
+Crie uma função useForm<T>(initialState: T).
+
+Mova a lógica de estado e handleChange para lá.
+
+O hook deve retornar: { form, handleChange, resetForm }.
+
+Refatore o FormUser para usar esse hook em vez de criar tudo na mão.
+
+Exemplo de uso esperado:
+
+const { form, handleChange } = useForm({
+  nome: '',
+  email: '',
+  idade: ''
+});
+
