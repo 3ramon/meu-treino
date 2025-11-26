@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
@@ -6,13 +6,15 @@ import "./style.css";
 import { TodoForm } from "../../components/TodoForm/index";
 import { TodoList } from "../../components/TodoList/index";
 import UserInterface from "../../UserInterface";
+import { UserContext } from "../../context/useContext";
+import Layout from "../../components/Layout";
 
 type StatusDoPedido = "aguardando" | "em_preparo" | "enviado" | "entregue";
 
 export default function FormUser() {
     const [inputNameValue, setInputNameValue] = useState<string>("");
     const [inputEmailValue, setInputEmailValue] = useState<string>("");
-    const [inputIdadeValue, setInputIdadeValue] = useState<number>(0);
+    const [inputIdadeValue, setInputIdadeValue] = useState<number | "">("");
     const [planoAtivoBox, setPlanoAtivoBox] = useState<boolean>(false);
     const [statusPedido, setStatusPedido] =
         useState<StatusDoPedido>("aguardando");
@@ -69,10 +71,13 @@ export default function FormUser() {
         }
     }
 
+    const { salvarUsuario } = useContext(UserContext);
+
     function handleSubmit() {
         if (inputNameValue && inputEmailValue && inputIdadeValue) {
             setSendForm(true);
             exibirStatus(statusPedido);
+            salvarUsuario(inputNameValue, inputEmailValue);
         } else {
             setSendForm(false);
             alert("Favor preencher todas as informações");
@@ -81,7 +86,9 @@ export default function FormUser() {
 
     return (
         <div className="Form">
-            <button className="RouterButton" onClick={handleClick}>Ir para To Do</button>
+            <button className="RouterButton" onClick={handleClick}>
+                Ir para To Do
+            </button>
             <h1>Formulario do Usuario</h1>
             <input
                 type="text"
@@ -128,17 +135,18 @@ export default function FormUser() {
             <button onClick={() => handleSubmit()}>Enviar fomulario</button>
 
             {sendForm && (
-                <div className="Resume">
-                    <div>Nome: {usuario.nome}</div>
-                    <div>Email: {inputEmailValue}</div>
-                    <div>Idade: {inputIdadeValue}</div>
-                    <div>
-                        {planoAtivoBox
-                            ? "Seu plano está ativo :D"
-                            : "Você está com o plano desativado!"}
-                    </div>
-                    <div>{status}</div>
-                </div>
+                <Layout />
+                // <div className="Resume">
+                //     <div>Nome: {}</div>
+                //     <div>Email: {inputEmailValue}</div>
+                //     <div>Idade: {inputIdadeValue}</div>
+                //     <div>
+                //         {planoAtivoBox
+                //             ? "Seu plano está ativo :D"
+                //             : "Você está com o plano desativado!"}
+                //     </div>
+                //     <div>{status}</div>
+                // </div>
             )}
         </div>
     );

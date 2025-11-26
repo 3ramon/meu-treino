@@ -29,7 +29,7 @@ const jogadas = [
         playerId: 3,
         scoutType: "assistencia",
     },
-     {
+    {
         playerId: 1,
         scoutType: "assistencia",
     },
@@ -37,7 +37,7 @@ const jogadas = [
         playerId: 4,
         scoutType: "falta",
     },
-     {
+    {
         playerId: 4,
         scoutType: "falta",
     },
@@ -45,7 +45,7 @@ const jogadas = [
         playerId: 5,
         scoutType: "cartao",
     },
-     {
+    {
         playerId: 2,
         scoutType: "correu",
     },
@@ -59,15 +59,16 @@ const todos = {};
 
 jogadas.map(({ playerId, scoutType }) => {
     if (playerId in todos) {
-        var teste = todos[playerId];
-
-        if (scoutType in teste) {
-            teste[scoutType] = teste[scoutType] + 1;
+        if (scoutType in todos[playerId]) {
+            todos[playerId][scoutType] = todos[playerId][scoutType] + 1;
         } else {
-            teste[scoutType] = 1;
+            todos[playerId][scoutType] = 1;
         }
     } else {
         todos[playerId] = JSON.parse(`{ "${scoutType}" : ${1} }`);
     }
 });
+
+
+
 console.log(todos);
