@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
@@ -20,7 +20,6 @@ export default function FormUser() {
         useState<StatusDoPedido>("aguardando");
     const [status, setStatus] = useState<string>("");
 
-    const [sendForm, setSendForm] = useState<boolean>(false);
 
     const usuario: UserInterface = {
         id: 1,
@@ -32,9 +31,10 @@ export default function FormUser() {
 
     const navigate = useNavigate();
 
-    const handleClick = () => {
-        navigate("/");
+      const handleClick = (route: any) => {
+        navigate(`${route}`);
     };
+    
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         const evento = event.target;
@@ -74,20 +74,21 @@ export default function FormUser() {
     const { salvarUsuario } = useContext(UserContext);
 
     function handleSubmit() {
-        if (inputNameValue && inputEmailValue && inputIdadeValue) {
-            setSendForm(true);
+        // if (inputNameValue && inputEmailValue && inputIdadeValue) {
             exibirStatus(statusPedido);
             salvarUsuario(inputNameValue, inputEmailValue);
-        } else {
-            setSendForm(false);
-            alert("Favor preencher todas as informações");
-        }
+            navigate("/Profile");
+        // } else {
+        //     setSendForm(false);
+        //     alert("Favor preencher todas as informações");
+        // }
     }
 
+    
     return (
         <div className="Form">
-            <button className="RouterButton" onClick={handleClick}>
-                Ir para To Do
+            <button className="RouterButton" onClick={()=> handleClick("/")}>
+                Voltar para
             </button>
             <h1>Formulario do Usuario</h1>
             <input
@@ -133,21 +134,6 @@ export default function FormUser() {
                 </select>
             </div>
             <button onClick={() => handleSubmit()}>Enviar fomulario</button>
-
-            {sendForm && (
-                <Layout />
-                // <div className="Resume">
-                //     <div>Nome: {}</div>
-                //     <div>Email: {inputEmailValue}</div>
-                //     <div>Idade: {inputIdadeValue}</div>
-                //     <div>
-                //         {planoAtivoBox
-                //             ? "Seu plano está ativo :D"
-                //             : "Você está com o plano desativado!"}
-                //     </div>
-                //     <div>{status}</div>
-                // </div>
-            )}
         </div>
     );
 }

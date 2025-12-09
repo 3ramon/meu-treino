@@ -2,6 +2,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Todohome from "./pages/Todohome";
 import FormUser from "./pages/FormUser";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+
+import { ProtectedRoutes } from "./pages/ProtectedRoutes";
 import { UserProvider } from "./context/useContext";
 
 function App() {
@@ -9,7 +13,18 @@ function App() {
         <UserProvider>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Todohome />} />
+                    <Route path="/" element={<Home />} />
+
+                    <Route
+                        path="/Profile"
+                        element={
+                            <ProtectedRoutes>
+                                <Profile />
+                            </ProtectedRoutes>
+                        }
+                    />
+
+                    <Route path="/ToDo" element={<Todohome />} />
                     <Route path="/FormUser" element={<FormUser />} />
                 </Routes>
             </BrowserRouter>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
@@ -13,7 +13,7 @@ export default function Todohome() {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("/FormUser");
+        navigate("/");
     };
 
     function addTodo(text: string) {
@@ -34,7 +34,9 @@ export default function Todohome() {
 
     return (
         <div className="App">
-            <button className="RouterButton" onClick={handleClick}>Ir para Formulario</button>
+            <button className="RouterButton" onClick={handleClick}>
+                Voltar para Home
+            </button>
             <h1>Lista de tarefas</h1>
 
             <TodoForm adicionar={addTodo} />
