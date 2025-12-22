@@ -105,3 +105,74 @@ const { form, handleChange } = useForm({
   idade: ''
 });
 
+
+-------------
+
+sugestoes de melhorias
+
+1. Correção: Refinamento de Tipagem e Interfaces
+Objetivo: Corrigir a tipagem estrita para evitar erros futuros e seguir as boas práticas do TypeScript.
+
+Tarefa A (UserInterface):
+
+Vá ao ficheiro src/UserInterface.ts.
+
+A propriedade idade está atualmente definida como number | "". Altere para ser estritamente number.
+
+Nota: Isso forçará você a tratar a conversão de string para número antes de salvar o objeto no estado ou no contexto.
+
+Tarefa B (LikeButton):
+
+Vá ao componente LikeButton.
+
+A prop contagemInicial deve ser marcada como opcional (?) na interface ButtonProps, pois nem sempre queremos passar um valor inicial.
+
+No componente, defina um valor padrão (default value) de 0 caso a prop não seja passada.
+
+2. Correção: Boas Práticas de Formulário (Preparação para o Hook)
+Objetivo: Abandonar o uso de placeholder como identificador, pois isso é instável (se mudar o texto do placeholder, o código quebra).
+
+Tarefa:
+
+No ficheiro src/pages/FormUser/index.tsx, adicione o atributo name a todos os inputs, selects e checkboxes.
+
+O valor do name deve corresponder exatamente ao nome da propriedade que quer salvar (ex: name="nome", name="email", name="planoAtivo").
+
+3. Desafio Avançado: Criando o Custom Hook useForm
+Contexto: O componente FormUser tem muitos estados separados (inputNameValue, inputEmailValue, etc.) e uma função handleChange grande e repetitiva. Vamos abstrair isso.
+
+Enunciado do Desafio:
+
+Criação do Hook:
+
+Crie o ficheiro src/hooks/useForm.ts.
+
+Exporte uma função chamada useForm<T>(initialState: T). O <T> indica que o hook é genérico e aceita qualquer tipo de formulário.
+
+Dentro dela, use um único useState para guardar todo o formulário.
+
+Crie uma função handleChange genérica que:
+
+Receba o evento de mudança (ChangeEvent).
+
+Identifique o campo pelo atributo name do target.
+
+Verifique se é um checkbox (use .checked) ou outro input (use .value).
+
+Atualize o estado preservando os valores antigos (...prev).
+
+Refatoração do Componente:
+
+No FormUser, apague os 5 useState individuais.
+
+Chame o useForm, passando o estado inicial do objeto (com chaves vazias ou valores padrão).
+
+Substitua os valores dos inputs (value={inputNameValue}) para usar o objeto do hook (value={form.nome}).
+
+Substitua todas as chamadas de mudança pelo novo handleChange do hook.
+
+Resultado Esperado:
+
+O código do FormUser deve ficar com menos de 80 linhas (excluindo imports).
+
+O formulário deve continuar a funcionar exatamente como antes, mas agora o código é reutilizável para qualquer outro formulário do sistema.
