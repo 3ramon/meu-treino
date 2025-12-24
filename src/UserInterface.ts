@@ -1,7 +1,7 @@
 export default interface User {
-    readonly id: number;
-    nome: string;
+    // readonly id: number;
+    name: string;
     email: string;
-    idade: number;
+    age: number;
     planoAtivo?: boolean;
 }

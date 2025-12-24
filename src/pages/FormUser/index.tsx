@@ -1,53 +1,36 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { useState } from "react";
 import "./style.css";
-import { TodoForm } from "../../components/TodoForm/index";
-import { TodoList } from "../../components/TodoList/index";
 import UserInterface from "../../UserInterface";
 import { UserContext } from "../../context/userContext";
-import Layout from "../../components/Layout";
-
+import { useForm } from "../../hooks/useForm";
 type StatusDoPedido = "aguardando" | "em_preparo" | "enviado" | "entregue";
 
 export default function FormUser() {
-    const [inputNameValue, setInputNameValue] = useState<string>("");
-    const [inputEmailValue, setInputEmailValue] = useState<string>("");
-    const [inputIdadeValue, setInputIdadeValue] = useState<number>(0);
-    const [planoAtivoBox, setPlanoAtivoBox] = useState<boolean>(false);
-    const [statusPedido, setStatusPedido] =
-        useState<StatusDoPedido>("aguardando");
+    const navigate = useNavigate();
+    const { salvarUsuario } = useContext(UserContext);
+
+   const [planoAtivoBox, setPlanoAtivoBox] = useState<boolean>(false);
+
     const [status, setStatus] = useState<string>("");
 
-    const usuario: UserInterface = {
-        id: 1,
-        nome: inputNameValue,
-        email: inputEmailValue,
-        idade: inputIdadeValue,
-        planoAtivo: planoAtivoBox,
-    };
+    const {form, handleChange} = useForm<UserInterface>({
+        // id = 1,
+        name: "",
+        email: "",
+        age: 0,
+        planoAtivo: false,
+    });
 
-    const navigate = useNavigate();
+    const [statusPedido, setStatusPedido] = useState<StatusDoPedido>("aguardando");
+
 
     const handleClick = (route: any) => {
         navigate(`${route}`);
     };
 
-    function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-        const evento = event.target;
-        switch (evento.name) {
-            case "name":
-                setInputNameValue(evento.value);
-                break;
-            case "email":
-                setInputEmailValue(evento.value);
-                break;
-            case "age":
-                setInputIdadeValue(Number(evento.value));
-                break;
-        }
-    }
+   
 
     function exibirStatus(status: StatusDoPedido) {
         switch (status) {
@@ -66,12 +49,16 @@ export default function FormUser() {
         }
     }
 
-    const { salvarUsuario } = useContext(UserContext);
+
 
     function handleSubmit() {
-        // if (inputNameValue && inputEmailValue && inputIdadeValue) {
+        if (!form.name || !form.email) {
+            alert("Preencha nome e email");
+            return;
+        }
+
         exibirStatus(statusPedido);
-        salvarUsuario(inputNameValue, inputEmailValue);
+        salvarUsuario(form.name, form.email);
         navigate("/Profile");
         // } else {
         //     setSendForm(false);
@@ -89,21 +76,21 @@ export default function FormUser() {
                 type="text"
                 name="name"
                 placeholder="Nome"
-                value={inputNameValue}
+                value={form.name}
                 onChange={handleChange}
             />
             <input
                 type="text"
                 name="email"
                 placeholder="E-mail"
-                value={inputEmailValue}
+                value={form.email}
                 onChange={handleChange}
             />
             <input
                 type="number"
                 name="age"
                 placeholder="Idade"
-                value={inputIdadeValue}
+                value={form.age}
                 onChange={handleChange}
             />
             <div>

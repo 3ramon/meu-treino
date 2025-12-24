@@ -176,3 +176,47 @@ Resultado Esperado:
 O código do FormUser deve ficar com menos de 80 linhas (excluindo imports).
 
 O formulário deve continuar a funcionar exatamente como antes, mas agora o código é reutilizável para qualquer outro formulário do sistema.
+
+-------------
+
+Exercício 1: Sincronizar o Contexto com o Formulário
+O Problema: O seu formulário coleta name, email, age e planoAtivo, mas o seu UserContext atualmente só sabe salvar nome e email. O Desafio: Atualize o Contexto para salvar todos os dados.
+
+Passos:
+
+Vá em userContext.tsx.
+
+Atualize a interface UserData para incluir idade: number e planoAtivo: boolean.
+
+Atualize a função salvarUsuario para receber esses novos argumentos.
+
+Vá no FormUser.tsx e atualize a chamada salvarUsuario(...) para passar os 4 valores.
+
+Exercício 2: Feedback Visual antes de Navegar
+O Problema: No seu código atual, quando o usuário clica em "Enviar", você chama exibirStatus e imediatamente dá um Maps("/Profile"). O usuário não tem tempo de ler a mensagem de sucesso. O Desafio: Faça o sistema esperar 2 segundos mostrando a mensagem antes de mudar de página.
+
+Dica: Use setTimeout dentro da função handleSubmit.
+
+🟠 Exercício 3: Criar a Página de Perfil (Leitura do Contexto)
+O Problema: Você está salvando os dados e enviando o usuário para /Profile, mas ainda não temos essa página para ver se funcionou. O Desafio: Crie o componente Profile.tsx.
+
+Requisitos:
+
+Use useContext(UserContext) para pegar o objeto user.
+
+Se user for null (não logado), mostre uma mensagem "Nenhum usuário logado".
+
+Se user existir, mostre todos os dados na tela (Nome, Email, Idade, Status do Plano).
+
+Adicione um botão "Sair" que chama a função logout do contexto e redireciona para a Home.
+
+Exercício 4: Resetar o Formulário (Uso do Hook)
+O Problema: Se o usuário preencher o formulário, voltar para a Home e entrar no formulário de novo, os dados antigos ainda podem estar lá (dependendo de como o componente desmonta) ou você pode querer limpar os campos após um envio bem-sucedido. O Desafio: Use a função resetForm que já existe no seu hook useForm.
+
+Passos:
+
+No FormUser.tsx, desestruture o resetForm: const { form, handleChange, resetForm } = useForm(...).
+
+Adicione um botão "Limpar Campos" ao lado do botão de enviar.
+
+Ao clicar, ele deve zerar todos os inputs.

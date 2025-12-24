@@ -23,9 +23,19 @@ export function UserProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
        
         const storedUser = localStorage.getItem("user");
-        if (storedUser) {
+        if (storedUser && storedUser !== "undefined") {
             //salvando o usuario(caso exista) utilizando o .parse para formatar como obj
-            setUser(JSON.parse(storedUser));
+           try{
+                const parsedUser = JSON.parse(storedUser);
+                setUser(parsedUser);
+           }catch(error){
+                console.error("Erro ao carregar usuário do cache:", error);
+                localStorage.removeItem("user");
+           }
+        }else{
+            if(storedUser !== "undefined"){
+                localStorage.removeItem("user");
+            }
         }
     }, []);
 
