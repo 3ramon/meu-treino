@@ -15,19 +15,19 @@ export default function Home() {
                 className="ButtonNavigation"
                 onClick={() => handleClick("ToDo")}
             >
-                Ir para To Do
+                To Do
             </button>
             <button
                 className="ButtonNavigation"
                 onClick={() => handleClick("FormUser")}
             >
-                Ir para o Formulário!
+                Formulário!
             </button>
             <button
                 className="ButtonNavigation"
                 onClick={() => handleClick("Profile")}
             >
-                Ir para o Perfil!
+                Perfil!
             </button>
         </div>
     );

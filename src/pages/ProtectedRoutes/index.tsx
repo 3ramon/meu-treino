@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { UserContext } from "../../context/useContext";
+import { UserContext } from "../../context/userContext";
 import { useContext } from "react";
 import "./style.css";
 
@@ -13,7 +13,7 @@ export const ProtectedRoutes: React.FC<ProtectedRouteProps> = ({
     const { user } = useContext(UserContext);
 
     if (!user) {
-        return <Navigate to="/FormUser" replace/>;
+        return <Navigate to="/FormUser" />;
     }
 
     return <>{children}</>;

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 import { useContext } from "react";
-import { UserContext } from "../../context/useContext";
+import { UserContext } from "../../context/userContext";
 
 export default function Profile() {
     const { user, logout } = useContext(UserContext);

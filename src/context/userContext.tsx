@@ -21,8 +21,10 @@ export function UserProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<UserData | null>(null);
 
     useEffect(() => {
+       
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
+            //salvando o usuario(caso exista) utilizando o .parse para formatar como obj
             setUser(JSON.parse(storedUser));
         }
     }, []);
@@ -30,6 +32,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     function salvarUsuario(nome: string, email: string) {
         const newUser = { nome, email };
         setUser(newUser);
+        //usando o .stringify para converter o obj em string json que é aceito no localstorage
         localStorage.setItem("user", JSON.stringify(newUser));
     }
 

@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 
 import { ProtectedRoutes } from "./pages/ProtectedRoutes";
-import { UserProvider } from "./context/useContext";
+import { UserProvider } from "./context/userContext";
 
 function App() {
     return (

@@ -3,12 +3,12 @@ import { useState } from "react";
 
 interface ButtonProps {
     name: string;
-    contagemInicial: number;
+    contagemInicial?: number;
     // onClick: () => void;
 }
 
-export function LikeButton({ name, contagemInicial,  }: ButtonProps) {
-    const [likes, setLikes] = useState(contagemInicial);
+export function LikeButton({ name, contagemInicial }: ButtonProps) {
+    const [likes, setLikes] = useState(contagemInicial || 0);
 
     return (
         <>

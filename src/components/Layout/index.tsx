@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { UserContext } from "../../context/useContext";
+import { UserContext } from "../../context/userContext";
 
 export default function Layout() {
     const { user, logout } = useContext(UserContext);

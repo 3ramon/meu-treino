@@ -6,7 +6,7 @@ import "./style.css";
 import { TodoForm } from "../../components/TodoForm/index";
 import { TodoList } from "../../components/TodoList/index";
 import UserInterface from "../../UserInterface";
-import { UserContext } from "../../context/useContext";
+import { UserContext } from "../../context/userContext";
 import Layout from "../../components/Layout";
 
 type StatusDoPedido = "aguardando" | "em_preparo" | "enviado" | "entregue";
@@ -14,12 +14,11 @@ type StatusDoPedido = "aguardando" | "em_preparo" | "enviado" | "entregue";
 export default function FormUser() {
     const [inputNameValue, setInputNameValue] = useState<string>("");
     const [inputEmailValue, setInputEmailValue] = useState<string>("");
-    const [inputIdadeValue, setInputIdadeValue] = useState<number | "">("");
+    const [inputIdadeValue, setInputIdadeValue] = useState<number>(0);
     const [planoAtivoBox, setPlanoAtivoBox] = useState<boolean>(false);
     const [statusPedido, setStatusPedido] =
         useState<StatusDoPedido>("aguardando");
     const [status, setStatus] = useState<string>("");
-
 
     const usuario: UserInterface = {
         id: 1,
@@ -31,24 +30,20 @@ export default function FormUser() {
 
     const navigate = useNavigate();
 
-      const handleClick = (route: any) => {
+    const handleClick = (route: any) => {
         navigate(`${route}`);
     };
-    
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         const evento = event.target;
-        switch (evento.placeholder) {
-            case "Nome":
+        switch (evento.name) {
+            case "name":
                 setInputNameValue(evento.value);
                 break;
-            case "E-mail":
+            case "email":
                 setInputEmailValue(evento.value);
                 break;
-            case "Idade":
-                setInputIdadeValue(Number(evento.value));
-                break;
-            case "Sta":
+            case "age":
                 setInputIdadeValue(Number(evento.value));
                 break;
         }
@@ -75,36 +70,38 @@ export default function FormUser() {
 
     function handleSubmit() {
         // if (inputNameValue && inputEmailValue && inputIdadeValue) {
-            exibirStatus(statusPedido);
-            salvarUsuario(inputNameValue, inputEmailValue);
-            navigate("/Profile");
+        exibirStatus(statusPedido);
+        salvarUsuario(inputNameValue, inputEmailValue);
+        navigate("/Profile");
         // } else {
         //     setSendForm(false);
         //     alert("Favor preencher todas as informações");
         // }
     }
 
-    
     return (
         <div className="Form">
-            <button className="RouterButton" onClick={()=> handleClick("/")}>
+            <button className="RouterButton" onClick={() => handleClick("/")}>
                 Voltar para
             </button>
             <h1>Formulario do Usuario</h1>
             <input
                 type="text"
+                name="name"
                 placeholder="Nome"
                 value={inputNameValue}
                 onChange={handleChange}
             />
             <input
                 type="text"
+                name="email"
                 placeholder="E-mail"
                 value={inputEmailValue}
                 onChange={handleChange}
             />
             <input
                 type="number"
+                name="age"
                 placeholder="Idade"
                 value={inputIdadeValue}
                 onChange={handleChange}
