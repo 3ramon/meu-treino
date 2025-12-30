@@ -1,15 +1,13 @@
 import React, { createContext, useState, ReactNode, useEffect } from "react";
+import User from "../UserInterface";
 
 // O formato dos dados que queremos salvar
-interface UserData {
-    nome: string;
-    email: string;
-}
+
 
 // O que o contexto vai oferecer para quem usar ele
 interface UserContextType {
-    user: UserData | null;
-    salvarUsuario: (nome: string, email: string) => void;
+    user: User | null;
+    salvarUsuario: (name: string, email: string, age: number, planoAtivo?: boolean) => void;
     logout: () => void;
 }
 
@@ -18,7 +16,7 @@ export const UserContext = createContext<UserContextType>(
 );
 
 export function UserProvider({ children }: { children: ReactNode }) {
-    const [user, setUser] = useState<UserData | null>(null);
+    const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
        
@@ -39,8 +37,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
         }
     }, []);
 
-    function salvarUsuario(nome: string, email: string) {
-        const newUser = { nome, email };
+    function salvarUsuario(name: string, email: string, age: number, planoAtivo?: boolean) {
+        const newUser = { name, email, age, planoAtivo };
         setUser(newUser);
         //usando o .stringify para converter o obj em string json que é aceito no localstorage
         localStorage.setItem("user", JSON.stringify(newUser));

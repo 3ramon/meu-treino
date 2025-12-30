@@ -17,7 +17,7 @@ export default function Layout() {
                             {user ? (
                                 <span className="text-green-400 font-semibold flex items-center gap-2">
                                     {/* <LucideUser size={16} /> */}
-                                    Olá, {user.nome}!
+                                    Olá, {user.name}!
                                     <button
                                         onClick={logout}
                                         className="ml-2 text-xs text-slate-400 hover:text-white underline"

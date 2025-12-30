@@ -16,7 +16,12 @@ export default function Profile() {
         <div className="container">
             {user ? (
                 <span className="UserLogado">
-                    Olá, {user.nome}!<div>Email: {user.email}</div>
+                    Olá, {user.name}!
+                    <ul>
+                        <li>Email: {user.email}</li>
+                        <li>Idade: {user.age}</li>
+                        <li>Seu plano está: {user.planoAtivo ? "Ativo!" : "Desativado"}</li>
+                    </ul>
                     <button
                         onClick={() => {
                             logout();

@@ -11,11 +11,11 @@ export default function FormUser() {
     const navigate = useNavigate();
     const { salvarUsuario } = useContext(UserContext);
 
-   const [planoAtivoBox, setPlanoAtivoBox] = useState<boolean>(false);
+    const [planoAtivoBox, setPlanoAtivoBox] = useState<boolean>(false);
 
     const [status, setStatus] = useState<string>("");
 
-    const {form, handleChange} = useForm<UserInterface>({
+    const { form, handleChange } = useForm<UserInterface>({
         // id = 1,
         name: "",
         email: "",
@@ -23,14 +23,12 @@ export default function FormUser() {
         planoAtivo: false,
     });
 
-    const [statusPedido, setStatusPedido] = useState<StatusDoPedido>("aguardando");
-
+    const [statusPedido, setStatusPedido] =
+        useState<StatusDoPedido>("aguardando");
 
     const handleClick = (route: any) => {
         navigate(`${route}`);
     };
-
-   
 
     function exibirStatus(status: StatusDoPedido) {
         switch (status) {
@@ -49,8 +47,6 @@ export default function FormUser() {
         }
     }
 
-
-
     function handleSubmit() {
         if (!form.name || !form.email) {
             alert("Preencha nome e email");
@@ -58,7 +54,7 @@ export default function FormUser() {
         }
 
         exibirStatus(statusPedido);
-        salvarUsuario(form.name, form.email);
+        salvarUsuario(form.name, form.email, form.age, form.planoAtivo);
         navigate("/Profile");
         // } else {
         //     setSendForm(false);
@@ -97,8 +93,8 @@ export default function FormUser() {
                 <label htmlFor="">Plano ativo?</label>
                 <input
                     type="checkbox"
-                    checked={planoAtivoBox}
-                    onChange={() => setPlanoAtivoBox(!planoAtivoBox)}
+                    checked={form.planoAtivo}
+                    onChange={handleChange}
                 />{" "}
             </div>
 

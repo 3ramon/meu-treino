@@ -1,6 +1,7 @@
 import "./style.css";
 import TodoItem from "../../TodoInterface";
 
+
 interface TodoPropsList {
     todos: TodoItem[];
     onToggle: (index: number) => void;

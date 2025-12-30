@@ -29,6 +29,12 @@ export default function Home() {
             >
                 Perfil!
             </button>
+            <button
+                className="ButtonNavigation"
+                onClick={() => handleClick("Loja")}
+            >
+                Loja!
+            </button>
         </div>
     );
 }

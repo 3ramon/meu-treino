@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 
 import { ProtectedRoutes } from "./pages/ProtectedRoutes";
 import { UserProvider } from "./context/userContext";
+import Loja from "./pages/Loja";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                     />
 
                     <Route path="/ToDo" element={<Todohome />} />
+                    <Route path="/Loja" element={<Loja />} />
                     <Route path="/FormUser" element={<FormUser />} />
                 </Routes>
             </BrowserRouter>
