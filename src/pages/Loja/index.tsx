@@ -1,9 +1,10 @@
 import "./style.css";
 import LojaInterface from "../../LojaInterface";
 import { CardShop } from "../../components/CardShop";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Loja() {
+
     const [produtos, setProdutos] = useState<LojaInterface[]>([
         {
             id: 1,
@@ -42,8 +43,14 @@ export default function Loja() {
         },
     ]);
 
-    const [produtosFilter, setProdutosFilter] =
-        useState<LojaInterface[]>(produtos);
+    const [categoriaAtiva, setCategoriaAtiva] = useState<string | null>(null);
+    // eu havia pensado nisso antes, mas esqueci do null entao fiquei bugado com o "" que nao filtrava nada
+
+
+    // exibe os dados que forem filtrados ou exibe o proprio state de produtos
+    const produtosFiltrados = categoriaAtiva
+        ? produtos.filter((produto) => produto.categoria === categoriaAtiva)
+        : produtos;
 
     function handleFavorited(idFavorited: number) {
         const newProdutos = produtos.map((produto: any) =>
@@ -54,13 +61,6 @@ export default function Loja() {
         setProdutos(newProdutos);
     }
 
-    function filterProducts(categoria: string) {
-        const newProducts = produtos.filter(
-            (produto: any) => produto.categoria === categoria
-        );
-        setProdutosFilter(newProducts);
-    }
-
     return (
         <div className="container">
             <div>Loja</div>
@@ -68,31 +68,35 @@ export default function Loja() {
             <div>
                 <button
                     onClick={() => {
-                        filterProducts("Proteína");
+                        setCategoriaAtiva("Proteína");
                     }}
                 >
                     Proteína
                 </button>
                 <button
                     onClick={() => {
-                        filterProducts("Força");
+                        setCategoriaAtiva("Força");
                     }}
                 >
                     Força
                 </button>
                 <button
                     onClick={() => {
-                        filterProducts("Energia");
+                        setCategoriaAtiva("Energia");
                     }}
                 >
                     Energia
                 </button>
-                <button onClick={() => setProdutosFilter(produtos)}>
+                <button
+                    onClick={() => {
+                        setCategoriaAtiva(null);
+                    }}
+                >
                     Limpar filtros
                 </button>
             </div>
 
-            <CardShop produtos={produtosFilter} favorited={handleFavorited} />
+            <CardShop produtos={produtosFiltrados} favorited={handleFavorited} />
         </div>
     );
 }

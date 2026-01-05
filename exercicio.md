@@ -220,3 +220,13 @@ No FormUser.tsx, desestruture o resetForm: const { form, handleChange, resetForm
 Adicione um botão "Limpar Campos" ao lado do botão de enviar.
 
 Ao clicar, ele deve zerar todos os inputs.
+
+
+
+
+  
+Criar um CartContext.
+
+Adicionar um botão "Comprar" no CardShop.
+
+Mostrar o número de itens no carrinho lá no Layout.

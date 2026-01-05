@@ -13,7 +13,7 @@ export function CardShop({ produtos, favorited }: ShopProps) {
                 <div key={produto.id} className="container">
                     <div>Nome: {produto.nome}</div>
                     <div>Preco: {produto.preco}</div>
-                    <button style={{backgroundColor: produto.favorito ? "Yellow" : "Grey"}} onClick={() => favorited(produto.id)}>
+                    <button style={{backgroundColor: produto.favorito ? "Grey" : "Yellow"}} onClick={() => favorited(produto.id)}>
                         {!produto.favorito ? "Like" : "Deslike"}
                     </button>
                 </div>
