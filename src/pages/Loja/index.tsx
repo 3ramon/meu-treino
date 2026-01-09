@@ -1,10 +1,10 @@
 import "./style.css";
 import LojaInterface from "../../LojaInterface";
 import { CardShop } from "../../components/CardShop";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { LojaContext } from "../../context/lojaContext";
 
 export default function Loja() {
-
     const [produtos, setProdutos] = useState<LojaInterface[]>([
         {
             id: 1,
@@ -46,7 +46,6 @@ export default function Loja() {
     const [categoriaAtiva, setCategoriaAtiva] = useState<string | null>(null);
     // eu havia pensado nisso antes, mas esqueci do null entao fiquei bugado com o "" que nao filtrava nada
 
-
     // exibe os dados que forem filtrados ou exibe o proprio state de produtos
     const produtosFiltrados = categoriaAtiva
         ? produtos.filter((produto) => produto.categoria === categoriaAtiva)
@@ -61,6 +60,12 @@ export default function Loja() {
         setProdutos(newProdutos);
     }
 
+    const { salvarItemCarrinho } = useContext(LojaContext);
+
+    function adicionarAoCarrinho(item: LojaInterface) {
+        salvarItemCarrinho(item.id, item.nome, item.preco, item.categoria, item.favorito);
+    }
+
     return (
         <div className="container">
             <div>Loja</div>
@@ -73,6 +78,7 @@ export default function Loja() {
                 >
                     Proteína
                 </button>
+
                 <button
                     onClick={() => {
                         setCategoriaAtiva("Força");
@@ -96,7 +102,11 @@ export default function Loja() {
                 </button>
             </div>
 
-            <CardShop produtos={produtosFiltrados} favorited={handleFavorited} />
+            <CardShop
+                produtos={produtosFiltrados}
+                favorited={handleFavorited}
+                adicionarCarrinho={adicionarAoCarrinho}
+            />
         </div>
     );
 }
