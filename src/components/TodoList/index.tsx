@@ -1,4 +1,3 @@
-import "./style.css";
 import TodoItem from "../../TodoInterface";
 
 

@@ -1,0 +1,19 @@
+.nav__btn {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background: #05343a;
+
+    border: 1px solid #000c0e;
+
+    border: none;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.nav__btn:hover {
+    background: #04464e;
+
+    transform: translateY(-1px);
+    box-shadow: 0 12px 26px rgba(10, 7, 7, 0.096);
+}

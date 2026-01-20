@@ -5,6 +5,7 @@ import "./style.css";
 import UserInterface from "../../UserInterface";
 import { UserContext } from "../../context/userContext";
 import { useForm } from "../../hooks/useForm";
+import NavBar from "../../components/NavBar";
 type StatusDoPedido = "aguardando" | "em_preparo" | "enviado" | "entregue";
 
 export default function FormUser() {
@@ -63,57 +64,57 @@ export default function FormUser() {
     }
 
     return (
-        <div className="Form">
-            <button className="RouterButton" onClick={() => handleClick("/")}>
-                Voltar para
-            </button>
-            <h1>Formulario do Usuario</h1>
-            <input
-                type="text"
-                name="name"
-                placeholder="Nome"
-                value={form.name}
-                onChange={handleChange}
-            />
-            <input
-                type="text"
-                name="email"
-                placeholder="E-mail"
-                value={form.email}
-                onChange={handleChange}
-            />
-            <input
-                type="number"
-                name="age"
-                placeholder="Idade"
-                value={form.age}
-                onChange={handleChange}
-            />
-            <div>
-                <label htmlFor="">Plano ativo?</label>
+        <>
+            <NavBar isShop={false} />
+            <div className="Form">
+                <h1>Formulario do Usuario</h1>
                 <input
-                    type="checkbox"
-                    checked={form.planoAtivo}
+                    type="text"
+                    name="name"
+                    placeholder="Nome"
+                    value={form.name}
                     onChange={handleChange}
-                />{" "}
-            </div>
+                />
+                <input
+                    type="text"
+                    name="email"
+                    placeholder="E-mail"
+                    value={form.email}
+                    onChange={handleChange}
+                />
+                <input
+                    type="number"
+                    name="age"
+                    placeholder="Idade"
+                    value={form.age}
+                    onChange={handleChange}
+                />
+                <div>
+                    <label htmlFor="">Plano ativo?</label>
+                    <input
+                        type="checkbox"
+                        checked={form.planoAtivo}
+                        onChange={handleChange}
+                    />
+                </div>
 
-            <div>
-                <label htmlFor="">Status do seu pedido</label>
+                <div>
+                    <label htmlFor="">Status do seu pedido</label>
 
-                <select
-                    value={statusPedido}
-                    onChange={(e) =>
-                        setStatusPedido(e.target.value as StatusDoPedido)
-                    }
-                >
-                    <option value="aguardando">Aguardando</option>
-                    <option value="em_preparo">Em preparo</option>
-                    <option value="enviado">Enviado</option>
-                    <option value="entregue">Entregue</option>
-                </select>
+                    <select
+                        value={statusPedido}
+                        onChange={(e) =>
+                            setStatusPedido(e.target.value as StatusDoPedido)
+                        }
+                    >
+                        <option value="aguardando">Aguardando</option>
+                        <option value="em_preparo">Em preparo</option>
+                        <option value="enviado">Enviado</option>
+                        <option value="entregue">Entregue</option>
+                    </select>
+                </div>
+                <button onClick={() => handleSubmit()}>Enviar fomulario</button>
             </div>
-            <button onClick={() => handleSubmit()}>Enviar fomulario</button>
-        </div>
+        </>
     );
 }

@@ -36,7 +36,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
     function salvarItemCarrinho(id: number, nome: string, preco: number, categoria: string, favorito: boolean) {
         const novoItemCarrinho = { id, nome, preco, categoria, favorito };
-        setCarrinho([...carrinho, novoItemCarrinho]);
+        // setCarrinho([...carrinho, novoItemCarrinho]);
         //usando o .stringify para converter o obj em string json que é aceito no localstorage
         // localStorage.setItem("user", JSON.stringify(newUser));
     }

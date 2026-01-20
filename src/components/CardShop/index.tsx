@@ -13,24 +13,32 @@ export function CardShop({
     adicionarCarrinho,
 }: ShopProps) {
     return (
-        <div className="cardContainer">
+        <>
             {produtos.map((produto) => (
-                <div key={produto.id} className="container">
-                    <div>Nome: {produto.nome}</div>
-                    <div>Preco: {produto.preco}</div>
-                    <button
-                        style={{
-                            backgroundColor: produto.favorito
-                                ? "Grey"
-                                : "Yellow",
-                        }}
-                        onClick={() => favorited(produto.id)}
-                    >
-                        {!produto.favorito ? "Like" : "Deslike"}
-                    </button>
-                    <button onClick={() => adicionarCarrinho(produto)}></button>
+                <div key={produto.id} className="card__produto">
+                    <div className="card__topo">
+                        <h3 className="card__nome">{produto.nome}</h3>
+                        <span className="card__categoria">{produto.categoria}</span>
+                    </div>
+                    <p className="card__preco">R$ {produto.preco}</p>
+
+                    <div className="card__acoes">
+                        <button
+                            className={`btn__like ${produto.favorito ? "isLiked" : ""}`}
+                            onClick={() => favorited(produto.id)}
+                        >
+                            {produto.favorito ? "♥" : "♡"}
+                        </button>
+
+                        <button
+                            className="btn__primary"
+                            onClick={() => adicionarCarrinho(produto)}
+                        >
+                            Adicionar ao carrinho
+                        </button>
+                    </div>
                 </div>
             ))}
-        </div>
+        </>
     );
 }

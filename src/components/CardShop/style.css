@@ -12,7 +12,6 @@
     width: 120px;
 }
 
-
 .title {
     width: 100%;
     color: rgb(46, 46, 46);
@@ -21,8 +20,91 @@
     text-transform: uppercase;
 }
 
+.card__produto {
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    transition: 0.2s;
+}
+
+.card__produto:hover {
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.1);
+}
+
+.card__topo {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.card__nome {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0;
+}
+
+.card__categoria {
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #f2f7f7;
+    color: #0b5f66;
+    font-weight: 700;
+    border: 1px solid #dcecec;
+}
+
 .name {
     font-weight: bold;
     width: 100%;
     font-size: 28px;
 }
+
+.card__preco {
+    margin: 10px 0 12px;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.card__acoes {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn__primary {
+    flex: 1;
+    border: none;
+    background: #0b5f66;
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn__primary:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+}
+
+.btn__like {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    border: 1px solid #e7e7e7;
+    background: #fff;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.btn__like.isLiked {
+    background: #fff0f0;
+    border-color: #ffd0d0;
+}
+
+

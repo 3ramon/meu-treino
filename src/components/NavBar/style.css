@@ -1,0 +1,88 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #045d69;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    position: relative;
+}
+
+.navbar__left,
+.navbar__center,
+.navbar__right {
+    display: flex;
+    align-items: center;
+}
+
+.user__section {
+    display: flex;
+}
+
+.user__perfil {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 20%;
+}
+
+
+.user__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 10px;
+}
+
+.username {
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+}
+
+.login__btn {
+    margin-top: 0.3rem;
+    padding: 0.5rem 0.9rem;
+    background: #5b9299;
+    font-weight: bold;
+    border: 1px solid #05343a;
+
+    transition: background 0.3s;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login__btn:hover {
+    background: #256068;
+    
+    
+}
+
+.navbar__center {
+    gap: 1rem;
+}
+
+.nav__text {
+    font-weight: 600;
+}
+
+
+.cart__btn {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+}
+
+.cart__modal {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background: #fff;
+    color: #000;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    width: 200px;
+}

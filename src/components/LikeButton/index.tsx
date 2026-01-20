@@ -12,7 +12,7 @@ export function LikeButton({ name, contagemInicial }: ButtonProps) {
 
     return (
         <>
-            <button className="btnLol" onClick={() => setLikes(likes + 1)}>
+            <button className="btn__lol" onClick={() => setLikes(likes + 1)}>
                 {name}
             </button>
             <div>Likes = {likes}</div>

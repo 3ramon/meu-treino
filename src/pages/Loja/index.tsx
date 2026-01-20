@@ -3,6 +3,7 @@ import LojaInterface from "../../LojaInterface";
 import { CardShop } from "../../components/CardShop";
 import { useContext, useEffect, useState } from "react";
 import { LojaContext } from "../../context/lojaContext";
+import NavBar from "../../components/NavBar";
 
 export default function Loja() {
     const [produtos, setProdutos] = useState<LojaInterface[]>([
@@ -55,7 +56,7 @@ export default function Loja() {
         const newProdutos = produtos.map((produto: any) =>
             idFavorited === produto.id
                 ? { ...produto, favorito: !produto.favorito }
-                : produto
+                : produto,
         );
         setProdutos(newProdutos);
     }
@@ -63,50 +64,70 @@ export default function Loja() {
     const { salvarItemCarrinho } = useContext(LojaContext);
 
     function adicionarAoCarrinho(item: LojaInterface) {
-        salvarItemCarrinho(item.id, item.nome, item.preco, item.categoria, item.favorito);
+        salvarItemCarrinho(
+            item.id,
+            item.nome,
+            item.preco,
+            item.categoria,
+            item.favorito,
+        );
     }
 
     return (
-        <div className="container">
-            <div>Loja</div>
+        <>
+            <NavBar isShop={true} />
 
             <div>
-                <button
-                    onClick={() => {
-                        setCategoriaAtiva("Proteína");
-                    }}
-                >
-                    Proteína
-                </button>
+                <div className="loja__page">
+                    <header className="loja__header">
+                        <h2 className="loja__titulo">Loja</h2>
 
-                <button
-                    onClick={() => {
-                        setCategoriaAtiva("Força");
-                    }}
-                >
-                    Força
-                </button>
-                <button
-                    onClick={() => {
-                        setCategoriaAtiva("Energia");
-                    }}
-                >
-                    Energia
-                </button>
-                <button
-                    onClick={() => {
-                        setCategoriaAtiva(null);
-                    }}
-                >
-                    Limpar filtros
-                </button>
+                        <div className="filtros">
+                            <button
+                                className="chip active"
+                                onClick={() => {
+                                    setCategoriaAtiva("Proteína");
+                                }}
+                            >
+                                Proteína
+                            </button>
+
+                            <button
+                                className="chip"
+                                onClick={() => {
+                                    setCategoriaAtiva("Força");
+                                }}
+                            >
+                                Força
+                            </button>
+                            <button
+                                className="chip"
+                                onClick={() => {
+                                    setCategoriaAtiva("Energia");
+                                }}
+                            >
+                                Energia
+                            </button>
+                            <button
+                                className="btn__ghost"
+                                onClick={() => {
+                                    setCategoriaAtiva(null);
+                                }}
+                            >
+                                Limpar filtros
+                            </button>
+                        </div>
+                    </header>
+
+                    <section className="produtos__grid">
+                        <CardShop
+                            produtos={produtosFiltrados}
+                            favorited={handleFavorited}
+                            adicionarCarrinho={adicionarAoCarrinho}
+                        />
+                    </section>
+                </div>
             </div>
-
-            <CardShop
-                produtos={produtosFiltrados}
-                favorited={handleFavorited}
-                adicionarCarrinho={adicionarAoCarrinho}
-            />
-        </div>
+        </>
     );
 }
