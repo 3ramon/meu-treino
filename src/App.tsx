@@ -7,29 +7,32 @@ import Profile from "./pages/Profile";
 
 import { ProtectedRoutes } from "./pages/ProtectedRoutes";
 import { UserProvider } from "./context/userContext";
+import { LojaProvider } from "./context/lojaContext";
 import Loja from "./pages/Loja";
 
 function App() {
     return (
         <UserProvider>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Home />} />
+            <LojaProvider>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
 
-                    <Route
-                        path="/Profile"
-                        element={
-                            // <ProtectedRoutes>
+                        <Route
+                            path="/Profile"
+                            element={
+                                // <ProtectedRoutes>
                                 <Profile />
-                            // </ProtectedRoutes>
-                        }
-                    />
+                                // </ProtectedRoutes>
+                            }
+                        />
 
-                    <Route path="/ToDo" element={<Todohome />} />
-                    <Route path="/Loja" element={<Loja />} />
-                    <Route path="/FormUser" element={<FormUser />} />
-                </Routes>
-            </BrowserRouter>
+                        <Route path="/ToDo" element={<Todohome />} />
+                        <Route path="/Loja" element={<Loja />} />
+                        <Route path="/FormUser" element={<FormUser />} />
+                    </Routes>
+                </BrowserRouter>
+            </LojaProvider>
         </UserProvider>
     );
 }

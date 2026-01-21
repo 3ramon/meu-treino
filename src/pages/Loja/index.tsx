@@ -13,6 +13,7 @@ export default function Loja() {
             preco: 150,
             categoria: "Proteína",
             favorito: false,
+            quantidade: 0,
         },
         {
             id: 2,
@@ -20,6 +21,7 @@ export default function Loja() {
             preco: 80,
             categoria: "Força",
             favorito: true,
+            quantidade: 1,
         },
         {
             id: 3,
@@ -27,6 +29,7 @@ export default function Loja() {
             preco: 120,
             categoria: "Energia",
             favorito: false,
+            quantidade: 3,
         },
         {
             id: 4,
@@ -34,6 +37,7 @@ export default function Loja() {
             preco: 15,
             categoria: "Proteína",
             favorito: false,
+            quantidade: 2,
         },
         {
             id: 5,
@@ -41,6 +45,7 @@ export default function Loja() {
             preco: 60,
             categoria: "Saúde",
             favorito: false,
+            quantidade: 1,
         },
     ]);
 
@@ -64,13 +69,7 @@ export default function Loja() {
     const { salvarItemCarrinho } = useContext(LojaContext);
 
     function adicionarAoCarrinho(item: LojaInterface) {
-        salvarItemCarrinho(
-            item.id,
-            item.nome,
-            item.preco,
-            item.categoria,
-            item.favorito,
-        );
+        salvarItemCarrinho(item);
     }
 
     return (

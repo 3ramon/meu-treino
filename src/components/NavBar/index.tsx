@@ -1,21 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import "./style.css";
-import { useState } from "react";
+import { useState, useContext} from "react";
 import perfilImg from "../../assets/perfil.png";
 import { ButtonNavBar } from "../ButtonNavbar";
+import { LojaContext } from "../../context/lojaContext";
 
 interface NavbarProps {
     isShop: boolean;
 }
 
 export default function NavBar({ isShop }: NavbarProps) {
+    const [showCart, setShowCart] = useState(false);
+    const {
+        carrinho,
+        removerItemCarrinho,
+        decrementarItemCarrinho,
+        acrescentarItemCarrinho,
+    } = useContext(LojaContext);
+
     // receber essas 2 variaveis direto do context para verificar se esta logado
     const isLoggedIn = true;
     const username = "Ramon";
 
     const navigate = useNavigate();
-
-    const [showCart, setShowCart] = useState(false);
 
     const handleClick = (route: any) => {
         navigate(`/${route}`);
@@ -48,10 +55,7 @@ export default function NavBar({ isShop }: NavbarProps) {
             <div className="navbar__center">
                 <div className="nav__text">Meus projetos:</div>
 
-                <ButtonNavBar
-                    name="Home"
-                    onClick={() => handleClick("")}
-                />
+                <ButtonNavBar name="Home" onClick={() => handleClick("")} />
                 <ButtonNavBar
                     name="To Do"
                     onClick={() => handleClick("ToDo")}
@@ -75,7 +79,50 @@ export default function NavBar({ isShop }: NavbarProps) {
                         {showCart && (
                             <div className="cart__modal">
                                 <h4>Itens do Carrinho</h4>
-                                <p>(Aqui você implementa a lógica depois)</p>
+                                {carrinho.length === 0! ? (
+                                    <div>Carrinho Vazio!</div>
+                                ) : (
+                                    carrinho.map((produto) => (
+                                        <div>
+                                            <div>Nome: {produto.nome}</div>
+                                            <div>Valor: R$ {produto.preco}</div>
+                                            <div>
+                                                <div>
+                                                    Quantidade:{" "}
+                                                    {produto.quantidade}
+                                                </div>
+                                                <button
+                                                    onClick={() => {
+                                                        removerItemCarrinho(
+                                                            produto.id,
+                                                        );
+                                                    }}
+                                                >
+                                                    Remover
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        acrescentarItemCarrinho(
+                                                            produto.id,
+                                                        );
+                                                    }}
+                                                >
+                                                    +
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        decrementarItemCarrinho(
+                                                            produto.id,
+                                                        );
+                                                    }}
+                                                >
+                                                    -
+                                                </button>
+                                            </div>
+                                            <p />
+                                        </div>
+                                    ))
+                                )}
                             </div>
                         )}
                     </>

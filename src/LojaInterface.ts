@@ -4,4 +4,5 @@ export default interface Loja {
     preco: number;
     categoria: string;
     favorito: boolean;
+    quantidade: number;
 }

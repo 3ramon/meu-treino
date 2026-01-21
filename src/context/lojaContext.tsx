@@ -1,53 +1,88 @@
 import React, { createContext, useState, ReactNode, useEffect } from "react";
-import Item from "../LojaInterface";
+import LojaI from "../LojaInterface";
 
 interface LojaContextType {
-    item: Item | null;
-    salvarItemCarrinho: (id: number, nome: string, preco: number, categoria: string, favorito: boolean) => void;
+    item: LojaI | null;
+    carrinho: LojaI[];
+    salvarItemCarrinho: (item: LojaI) => void;
     removerItemCarrinho: (id: number) => void;
+    acrescentarItemCarrinho: (id: number) => void;
+    decrementarItemCarrinho: (id: number) => void;
 }
 
 export const LojaContext = createContext<LojaContextType>(
-    {} as LojaContextType
+    {} as LojaContextType,
 );
 
-export function UserProvider({ children }: { children: ReactNode }) {
-    const [carrinho, setCarrinho] = useState<[{}]>([{}]);
-    const [item, setItem] = useState<Item | null>(null);
+export function LojaProvider({ children }: { children: ReactNode }) {
+    const [carrinho, setCarrinho] = useState<LojaI[]>([]);
+    const [item, setItem] = useState<LojaI | null>(null);
 
-    useEffect(() => {
-       
-        // const storedUser = localStorage.getItem("user");
-        // if (storedUser && storedUser !== "undefined") {
-        //     //salvando o usuario(caso exista) utilizando o .parse para formatar como obj
-        //    try{
-        //         const parsedUser = JSON.parse(storedUser);
-        //         setUser(parsedUser);
-        //    }catch(error){
-        //         console.error("Erro ao carregar usuário do cache:", error);
-        //         localStorage.removeItem("user");
-        //    }
-        // }else{
-        //     if(storedUser !== "undefined"){
-        //         localStorage.removeItem("user");
-        //     }
-        // }
-    }, []);
+    useEffect(() => {}, []);
 
-    function salvarItemCarrinho(id: number, nome: string, preco: number, categoria: string, favorito: boolean) {
-        const novoItemCarrinho = { id, nome, preco, categoria, favorito };
-        // setCarrinho([...carrinho, novoItemCarrinho]);
-        //usando o .stringify para converter o obj em string json que é aceito no localstorage
-        // localStorage.setItem("user", JSON.stringify(newUser));
+    function salvarItemCarrinho(item: LojaI) {
+        const itemExiste = carrinho.find((i) => i.id === item.id);
+
+        if (itemExiste) {
+            const novoCarrinho = carrinho.map((produto) => {
+                if (produto.id === item.id) {
+                    return { ...produto, quantidade: produto.quantidade + 1 };
+                }
+                return produto;
+            });
+
+            setCarrinho(novoCarrinho);
+        } else {
+            const novoItem = { ...item, quantidade: 1 };
+            setCarrinho([...carrinho, novoItem]);
+        }
+    }
+
+    function acrescentarItemCarrinho(id: number) {
+        const novoCarrinho = carrinho.map((produto) => {
+            if (produto.id === id) {
+                return { ...produto, quantidade: produto.quantidade + 1 };
+            }
+            return produto;
+        });
+
+        setCarrinho(novoCarrinho);
+    }
+
+    function decrementarItemCarrinho(id: number) {
+        const itemDecrementar = carrinho.find((i) => i.id === id);
+        if (itemDecrementar && itemDecrementar.quantidade > 1) {
+            const novoCarrinho = carrinho.map((produto) => {
+                if (produto.id === id) {
+                    return { ...produto, quantidade: produto.quantidade - 1 };
+                }
+                return produto;
+            });
+            setCarrinho(novoCarrinho);
+        } else {
+            const novoCarrinho = carrinho.filter(
+                (produto) => produto.id !== id,
+            );
+            setCarrinho(novoCarrinho);
+        }
     }
 
     function removerItemCarrinho(id: number) {
-        // busca o id no carrinho e remove
-        // localStorage.removeItem("user");
+        const novoCarrinho = carrinho.filter((produto) => produto.id !== id);
+        setCarrinho(novoCarrinho);
     }
 
     return (
-        <LojaContext.Provider value={{ item, salvarItemCarrinho, removerItemCarrinho }}>
+        <LojaContext.Provider
+            value={{
+                item,
+                carrinho,
+                acrescentarItemCarrinho,
+                decrementarItemCarrinho,
+                salvarItemCarrinho,
+                removerItemCarrinho,
+            }}
+        >
             {children}
         </LojaContext.Provider>
     );
