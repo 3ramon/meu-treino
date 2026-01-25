@@ -4,4 +4,5 @@ export default interface User {
     email: string;
     age: number;
     planoAtivo?: boolean;
+    password: string;
 }

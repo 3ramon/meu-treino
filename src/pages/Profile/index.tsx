@@ -15,10 +15,10 @@ export default function Profile() {
 
     return (
         <>
-        {/* organizar perfil - lembrar de descomentar protected routes */}
+            {/* organizar perfil - lembrar de descomentar protected routes */}
             <NavBar isShop={false} />
-            <div className="container">
-                {user ? (
+            <div className="container_profile">
+                {user && (
                     <span className="UserLogado">
                         Olá, {user.name}!
                         <ul>
@@ -39,8 +39,6 @@ export default function Profile() {
                             Sair
                         </button>
                     </span>
-                ) : (
-                    <span className="UserDeslogado">Visitante</span>
                 )}
             </div>
         </>

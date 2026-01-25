@@ -22,6 +22,7 @@ export default function FormUser() {
         email: "",
         age: 0,
         planoAtivo: false,
+        password: "",
     });
 
     const [statusPedido, setStatusPedido] =
@@ -55,8 +56,14 @@ export default function FormUser() {
         }
 
         exibirStatus(statusPedido);
-        salvarUsuario(form.name, form.email, form.age, form.planoAtivo);
-        navigate("/Profile");
+        salvarUsuario(
+            form.name,
+            form.email,
+            form.age,
+            form.password,
+            form.planoAtivo,
+        );
+        navigate("/Login");
         // } else {
         //     setSendForm(false);
         //     alert("Favor preencher todas as informações");
@@ -69,6 +76,7 @@ export default function FormUser() {
             <div className="Form">
                 <h1>Formulario do Usuario</h1>
                 <input
+                    className="input"
                     type="text"
                     name="name"
                     placeholder="Nome"
@@ -76,6 +84,7 @@ export default function FormUser() {
                     onChange={handleChange}
                 />
                 <input
+                    className="input"
                     type="text"
                     name="email"
                     placeholder="E-mail"
@@ -83,6 +92,15 @@ export default function FormUser() {
                     onChange={handleChange}
                 />
                 <input
+                    className="input"
+                    type="text"
+                    name="password"
+                    placeholder="Senha"
+                    value={form.password}
+                    onChange={handleChange}
+                />
+                <input
+                    className="input"
                     type="number"
                     name="age"
                     placeholder="Idade"
@@ -92,16 +110,17 @@ export default function FormUser() {
                 <div>
                     <label htmlFor="">Plano ativo?</label>
                     <input
+                        className="checkbox"
                         type="checkbox"
                         checked={form.planoAtivo}
                         onChange={handleChange}
                     />
                 </div>
-
                 <div>
                     <label htmlFor="">Status do seu pedido</label>
 
                     <select
+                        className="select"
                         value={statusPedido}
                         onChange={(e) =>
                             setStatusPedido(e.target.value as StatusDoPedido)

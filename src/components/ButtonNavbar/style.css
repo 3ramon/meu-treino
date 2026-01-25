@@ -11,9 +11,14 @@
     transition: background 0.3s;
 }
 
-.nav__btn:hover {
-    background: #04464e;
+.nav__btn:disabled{
+    transform: none;
+     color: #8b8989;
+    background: #045d69cc;
+    
+}
 
-    transform: translateY(-1px);
+.nav__btn:hover:not(:disabled) {
+    background: #04464e;
     box-shadow: 0 12px 26px rgba(10, 7, 7, 0.096);
 }

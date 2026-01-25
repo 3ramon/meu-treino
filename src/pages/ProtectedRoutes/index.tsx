@@ -13,7 +13,7 @@ export const ProtectedRoutes: React.FC<ProtectedRouteProps> = ({
     const { user } = useContext(UserContext);
 
     if (!user) {
-        return <Navigate to="/FormUser" />;
+        return <Navigate to="/Login" />;
     }
 
     return <>{children}</>;

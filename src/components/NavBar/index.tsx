@@ -1,15 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import "./style.css";
-import { useState, useContext} from "react";
+import { useState, useContext, use, useEffect } from "react";
 import perfilImg from "../../assets/perfil.png";
 import { ButtonNavBar } from "../ButtonNavbar";
 import { LojaContext } from "../../context/lojaContext";
+import { UserContext } from "../../context/userContext";
 
 interface NavbarProps {
     isShop: boolean;
 }
 
 export default function NavBar({ isShop }: NavbarProps) {
+    const { logged, user } = useContext(UserContext);
+
     const [showCart, setShowCart] = useState(false);
     const {
         carrinho,
@@ -18,21 +21,19 @@ export default function NavBar({ isShop }: NavbarProps) {
         acrescentarItemCarrinho,
     } = useContext(LojaContext);
 
-    // receber essas 2 variaveis direto do context para verificar se esta logado
-    const isLoggedIn = true;
-    const username = "Ramon";
-
     const navigate = useNavigate();
 
     const handleClick = (route: any) => {
         navigate(`/${route}`);
     };
 
+
+
     return (
         <nav className="navbar">
             <div className="navbar__left">
                 <div className="user__section">
-                    {isLoggedIn ? (
+                    {logged ? (
                         <div
                             className="user__perfil"
                             onClick={() => {
@@ -44,10 +45,17 @@ export default function NavBar({ isShop }: NavbarProps) {
                                 alt="user-icon"
                                 className="user__icon"
                             />
-                            <span className="username">{username}</span>
+                            <span className="username">{user?.name}</span>
                         </div>
                     ) : (
-                        <button className="login__btn">Login</button>
+                        <button
+                            className="login__btn"
+                            onClick={() => {
+                                handleClick("Login");
+                            }}
+                        >
+                            Login
+                        </button>
                     )}
                 </div>
             </div>
@@ -55,16 +63,26 @@ export default function NavBar({ isShop }: NavbarProps) {
             <div className="navbar__center">
                 <div className="nav__text">Meus projetos:</div>
 
-                <ButtonNavBar name="Home" onClick={() => handleClick("")} />
+                <ButtonNavBar
+                    name="Home"
+                    onClick={() => handleClick("")}
+                    disabledButton={false}
+                />
                 <ButtonNavBar
                     name="To Do"
                     onClick={() => handleClick("ToDo")}
+                    disabledButton={false}
                 />
                 <ButtonNavBar
                     name="Formulário"
+                    disabledButton={logged}
                     onClick={() => handleClick("FormUser")}
                 />
-                <ButtonNavBar name="Loja" onClick={() => handleClick("Loja")} />
+                <ButtonNavBar
+                    name="Loja"
+                    onClick={() => handleClick("Loja")}
+                    disabledButton={false}
+                />
             </div>
 
             <div className="navbar__right">

@@ -18,7 +18,6 @@ export function LojaProvider({ children }: { children: ReactNode }) {
     const [carrinho, setCarrinho] = useState<LojaI[]>([]);
     const [item, setItem] = useState<LojaI | null>(null);
 
-    useEffect(() => {}, []);
 
     function salvarItemCarrinho(item: LojaI) {
         const itemExiste = carrinho.find((i) => i.id === item.id);
