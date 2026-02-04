@@ -6,48 +6,9 @@ import { LojaContext } from "../../context/lojaContext";
 import NavBar from "../../components/NavBar";
 
 export default function Loja() {
-    const [produtos, setProdutos] = useState<LojaInterface[]>([
-        {
-            id: 1,
-            nome: "Whey Protein",
-            preco: 150,
-            categoria: "Proteína",
-            favorito: false,
-            quantidade: 0,
-        },
-        {
-            id: 2,
-            nome: "Creatina Monohidratada",
-            preco: 80,
-            categoria: "Força",
-            favorito: true,
-            quantidade: 1,
-        },
-        {
-            id: 3,
-            nome: "Pré-Treino Psicótico",
-            preco: 120,
-            categoria: "Energia",
-            favorito: false,
-            quantidade: 3,
-        },
-        {
-            id: 4,
-            nome: "Barra de Proteína",
-            preco: 15,
-            categoria: "Proteína",
-            favorito: false,
-            quantidade: 2,
-        },
-        {
-            id: 5,
-            nome: "Multivitamínico",
-            preco: 60,
-            categoria: "Saúde",
-            favorito: false,
-            quantidade: 1,
-        },
-    ]);
+    const { salvarItemCarrinho, produtosBanco } = useContext(LojaContext);
+
+    const [produtos, setProdutos] = useState<LojaInterface[]>(produtosBanco);
 
     const [categoriaAtiva, setCategoriaAtiva] = useState<string | null>(null);
     // eu havia pensado nisso antes, mas esqueci do null entao fiquei bugado com o "" que nao filtrava nada
@@ -66,7 +27,10 @@ export default function Loja() {
         setProdutos(newProdutos);
     }
 
-    const { salvarItemCarrinho } = useContext(LojaContext);
+    useEffect(() => {
+        console.log ("chamou o useEffect")
+        setProdutos(produtosBanco);
+    }, [produtosBanco]);
 
     function adicionarAoCarrinho(item: LojaInterface) {
         salvarItemCarrinho(item);

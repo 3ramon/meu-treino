@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import { ProtectedRoutes } from "./pages/ProtectedRoutes";
 import { UserProvider } from "./context/userContext";
 import { LojaProvider } from "./context/lojaContext";
+import FormProduto from "./pages/FormProduto";
 
 function App() {
     return (
@@ -32,6 +33,7 @@ function App() {
                         <Route path="/Login" element={<Login />} />
                         <Route path="/Loja" element={<Loja />} />
                         <Route path="/FormUser" element={<FormUser />} />
+                        <Route path="/FormProduto" element={<FormProduto />} />
                     </Routes>
                 </BrowserRouter>
             </LojaProvider>

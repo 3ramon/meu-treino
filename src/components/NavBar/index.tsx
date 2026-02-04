@@ -77,10 +77,16 @@ export default function NavBar({ isShop }: NavbarProps) {
                     name="Formulário"
                     disabledButton={logged}
                     onClick={() => handleClick("FormUser")}
-                />
+                /> 
+                
                 <ButtonNavBar
                     name="Loja"
                     onClick={() => handleClick("Loja")}
+                    disabledButton={false}
+                />
+                <ButtonNavBar
+                    name="Cadastro"
+                    onClick={() => handleClick("FormProduto")}
                     disabledButton={false}
                 />
             </div>
