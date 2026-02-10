@@ -1,10 +1,10 @@
-import { useNavigate } from "react-router-dom";
 import "./style.css";
 import { useState, useContext, use, useEffect } from "react";
 import perfilImg from "../../assets/perfil.png";
 import { ButtonNavBar } from "../ButtonNavbar";
 import { LojaContext } from "../../context/lojaContext";
 import { UserContext } from "../../context/userContext";
+import { useNavigation } from "../../hooks/useNavigation";
 
 interface NavbarProps {
     isShop: boolean;
@@ -13,6 +13,7 @@ interface NavbarProps {
 export default function NavBar({ isShop }: NavbarProps) {
     const { logged, user } = useContext(UserContext);
 
+    const { handleNavigation } = useNavigation();
     const [showCart, setShowCart] = useState(false);
     const {
         carrinho,
@@ -21,14 +22,6 @@ export default function NavBar({ isShop }: NavbarProps) {
         acrescentarItemCarrinho,
     } = useContext(LojaContext);
 
-    const navigate = useNavigate();
-
-    const handleClick = (route: any) => {
-        navigate(`/${route}`);
-    };
-
-
-
     return (
         <nav className="navbar">
             <div className="navbar__left">
@@ -36,9 +29,7 @@ export default function NavBar({ isShop }: NavbarProps) {
                     {logged ? (
                         <div
                             className="user__perfil"
-                            onClick={() => {
-                                handleClick("Profile");
-                            }}
+                            onClick={() => handleNavigation("Profile")}
                         >
                             <img
                                 src={perfilImg}
@@ -49,10 +40,9 @@ export default function NavBar({ isShop }: NavbarProps) {
                         </div>
                     ) : (
                         <button
+                            name="Home"
                             className="login__btn"
-                            onClick={() => {
-                                handleClick("Login");
-                            }}
+                            onClick={() => handleNavigation("Login")}
                         >
                             Login
                         </button>
@@ -65,28 +55,28 @@ export default function NavBar({ isShop }: NavbarProps) {
 
                 <ButtonNavBar
                     name="Home"
-                    onClick={() => handleClick("")}
+                    onClick={() => handleNavigation("")}
                     disabledButton={false}
                 />
                 <ButtonNavBar
                     name="To Do"
-                    onClick={() => handleClick("ToDo")}
+                    onClick={() => handleNavigation("ToDo")}
                     disabledButton={false}
                 />
                 <ButtonNavBar
                     name="Formulário"
                     disabledButton={logged}
-                    onClick={() => handleClick("FormUser")}
-                /> 
-                
+                    onClick={() => handleNavigation("FormUser")}
+                />
+
                 <ButtonNavBar
                     name="Loja"
-                    onClick={() => handleClick("Loja")}
+                    onClick={() => handleNavigation("Loja")}
                     disabledButton={false}
                 />
                 <ButtonNavBar
                     name="Cadastro"
-                    onClick={() => handleClick("FormProduto")}
+                    onClick={() => handleNavigation("FormProduto")}
                     disabledButton={false}
                 />
             </div>
@@ -117,27 +107,33 @@ export default function NavBar({ isShop }: NavbarProps) {
                                                 </div>
                                                 <button
                                                     onClick={() => {
-                                                        removerItemCarrinho(
-                                                            produto.id,
-                                                        );
+                                                        produto.id !==
+                                                            undefined &&
+                                                            removerItemCarrinho(
+                                                                produto.id,
+                                                            );
                                                     }}
                                                 >
                                                     Remover
                                                 </button>
                                                 <button
                                                     onClick={() => {
-                                                        acrescentarItemCarrinho(
-                                                            produto.id,
-                                                        );
+                                                        produto.id !==
+                                                            undefined &&
+                                                            acrescentarItemCarrinho(
+                                                                produto.id,
+                                                            );
                                                     }}
                                                 >
                                                     +
                                                 </button>
                                                 <button
                                                     onClick={() => {
-                                                        decrementarItemCarrinho(
-                                                            produto.id,
-                                                        );
+                                                        produto.id !==
+                                                            undefined &&
+                                                            decrementarItemCarrinho(
+                                                                produto.id,
+                                                            );
                                                     }}
                                                 >
                                                     -

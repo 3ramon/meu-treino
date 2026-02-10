@@ -1,8 +1,4 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
 import { useState } from "react";
-// import "./App.css";
 import { TodoForm } from "../../components/TodoForm/index";
 import { TodoList } from "../../components/TodoList/index";
 import TodoItem from "../../TodoInterface";
@@ -10,12 +6,6 @@ import NavBar from "../../components/NavBar";
 
 export default function Todohome() {
     const [todos, setTodos] = useState<TodoItem[]>([]);
-
-    const navigate = useNavigate();
-
-    const handleClick = () => {
-        navigate("/");
-    };
 
     function addTodo(text: string) {
         const newTodo: TodoItem = {

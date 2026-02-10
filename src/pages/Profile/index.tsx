@@ -1,18 +1,15 @@
-import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import NavBar from "../../components/NavBar";
+import { useNavigation } from "../../hooks/useNavigation";
 
 export default function Profile() {
     const { user, logout } = useContext(UserContext);
 
-    const navigate = useNavigate();
-    const handleClick = () => {
-        navigate(`/`);
-    };
-
+    const { handleNavigation } = useNavigation();
+   
     return (
         <>
             {/* organizar perfil - lembrar de descomentar protected routes */}
@@ -32,7 +29,7 @@ export default function Profile() {
                         <button
                             onClick={() => {
                                 logout();
-                                handleClick();
+                                handleNavigation("");
                             }}
                             className="ButtonLogout"
                         >

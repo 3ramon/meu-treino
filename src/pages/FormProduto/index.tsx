@@ -1,17 +1,17 @@
 import React, { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./style.css";
-import { useProdutoForm } from "../../hooks/useProdutoForm";
+import { useForm } from "../../hooks/useForm";
+import { useNavigation } from "../../hooks/useNavigation";
 import NavBar from "../../components/NavBar";
-import LojaFormInterface from "../../LojaFormInterface";
+import LojaI from "../../LojaInterface";
 import { LojaContext } from "../../context/lojaContext";
 
 export default function FormProduto() {
-    const navigate = useNavigate();
+    const { handleNavigation } = useNavigation();
 
     const { salvarProduto } = useContext(LojaContext);
-    const { form, handleChange } = useProdutoForm<LojaFormInterface>({
+    const { form, handleChange } = useForm<LojaI>({
         nome: "",
         preco: 0,
         categoria: "",
@@ -19,9 +19,7 @@ export default function FormProduto() {
         quantidade: 1,
     });
 
-    const handleClick = (route: any) => {
-        navigate(`${route}`);
-    };
+
 
     function handleSubmit() {
         if (!form.nome || !form.preco || !form.categoria) {
@@ -34,7 +32,7 @@ export default function FormProduto() {
         }
 
         salvarProduto(form);
-        navigate("/Loja");
+        handleNavigation("Loja");
     }
 
     return (

@@ -1,18 +1,16 @@
-import React, { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { useState } from "react";
 import "./style.css";
 import UserInterface from "../../UserInterface";
 import { UserContext } from "../../context/userContext";
 import { useForm } from "../../hooks/useForm";
 import NavBar from "../../components/NavBar";
+import { useNavigation } from "../../hooks/useNavigation";
 type StatusDoPedido = "aguardando" | "em_preparo" | "enviado" | "entregue";
 
 export default function FormUser() {
-    const navigate = useNavigate();
     const { salvarUsuario } = useContext(UserContext);
-
-    const [planoAtivoBox, setPlanoAtivoBox] = useState<boolean>(false);
+    const { handleNavigation } = useNavigation();
 
     const [status, setStatus] = useState<string>("");
 
@@ -27,10 +25,6 @@ export default function FormUser() {
 
     const [statusPedido, setStatusPedido] =
         useState<StatusDoPedido>("aguardando");
-
-    const handleClick = (route: any) => {
-        navigate(`${route}`);
-    };
 
     function exibirStatus(status: StatusDoPedido) {
         switch (status) {
@@ -63,7 +57,7 @@ export default function FormUser() {
             form.password,
             form.planoAtivo,
         );
-        navigate("/Login");
+        handleNavigation("Login");
         // } else {
         //     setSendForm(false);
         //     alert("Favor preencher todas as informações");

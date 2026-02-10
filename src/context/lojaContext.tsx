@@ -1,13 +1,12 @@
 import React, { createContext, useState, ReactNode, useEffect } from "react";
 import LojaI from "../LojaInterface";
-import LojaFormInterface from "../LojaFormInterface";
 import { supabase } from "../services/supabase";
 
 interface LojaContextType {
     item: LojaI | null;
     produtosBanco: LojaI[];
     carrinho: LojaI[];
-    salvarProduto: (produto: LojaFormInterface) => void;
+    salvarProduto: (produto: LojaI) => void;
     salvarItemCarrinho: (item: LojaI) => void;
     removerItemCarrinho: (id: number) => void;
     acrescentarItemCarrinho: (id: number) => void;
@@ -22,38 +21,18 @@ export function LojaProvider({ children }: { children: ReactNode }) {
     const [produtosBanco, setProdutosBanco] = useState<LojaI[]>([]);
     const [carrinho, setCarrinho] = useState<LojaI[]>([]);
     const [item, setItem] = useState<LojaI | null>(null);
-    const [produto, setProduto] = useState<LojaFormInterface | null>(null);
 
     useEffect(() => {
-        async function loadProdutos() {
-            const { data, error } = await supabase.from("produtos").select("*");
-            console.log(error, data, "retorno do supabase");
-            setProdutosBanco(data || []);
-        }
-
         loadProdutos();
-    }, [produto]);
+    }, []);
 
-    function salvarItemCarrinho(item: LojaI) {
-        const itemExiste = carrinho.find((i) => i.id === item.id);
-
-        if (itemExiste) {
-            const novoCarrinho = carrinho.map((produto) => {
-                if (produto.id === item.id) {
-                    return { ...produto, quantidade: produto.quantidade + 1 };
-                }
-                return produto;
-            });
-
-            setCarrinho(novoCarrinho);
-        } else {
-            const novoItem = { ...item, quantidade: 1 };
-            setCarrinho([...carrinho, novoItem]);
-        }
+    async function loadProdutos() {
+        const { data, error } = await supabase.from("produtos").select("*");
+        console.log(error, data, "retorno do supabase");
+        setProdutosBanco(data || []);
     }
 
-    async function salvarProduto(produto: LojaFormInterface) {
-        setProduto(produto);
+    async function salvarProduto(produto: LojaI) {
         const { error } = await supabase.from("produtos").insert([
             {
                 nome: produto.nome,
@@ -63,16 +42,31 @@ export function LojaProvider({ children }: { children: ReactNode }) {
                 quantidade: produto.quantidade,
             },
         ]);
+        await loadProdutos();
     }
-    function acrescentarItemCarrinho(id: number) {
-        const novoCarrinho = carrinho.map((produto) => {
+
+    function salvarItemCarrinho(item: LojaI) {
+        const itemExiste = carrinho.find((i) => i.id === item.id);
+
+        if (itemExiste && item.id !== undefined) {
+            setCarrinho(mapCarrinho(item.id));
+        } else {
+            const novoItem = { ...item, quantidade: 1 };
+            setCarrinho([...carrinho, novoItem]);
+        }
+    }
+
+    function mapCarrinho(id: number): LojaI[] {
+        return carrinho.map((produto) => {
             if (produto.id === id) {
                 return { ...produto, quantidade: produto.quantidade + 1 };
             }
             return produto;
         });
+    }
 
-        setCarrinho(novoCarrinho);
+    function acrescentarItemCarrinho(id: number) {
+        setCarrinho(mapCarrinho(id));
     }
 
     function decrementarItemCarrinho(id: number) {

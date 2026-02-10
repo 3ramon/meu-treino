@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 import { useContext, useState } from "react";
@@ -6,15 +5,12 @@ import { UserContext } from "../../context/userContext";
 import NavBar from "../../components/NavBar";
 import { useForm } from "../../hooks/useForm";
 import UserInterface from "../../UserInterface";
+import { useNavigation } from "../../hooks/useNavigation";
 
 export default function Login() {
     const { login } = useContext(UserContext);
 
-    const navigate = useNavigate();
-    const handleClick = () => {
-        navigate(`/`);
-    };
-
+    const { handleNavigation } = useNavigation();
     const { form, handleChange } = useForm<UserInterface>({
         // id = 1,
         name: "",
@@ -32,7 +28,7 @@ export default function Login() {
 
         if (login(form.email, form.password)) {
             console.log("deu certo")
-            navigate("/Profile");
+            handleNavigation("Profile");
         } else {
             alert("Email ou Senha incorreto!");
         }

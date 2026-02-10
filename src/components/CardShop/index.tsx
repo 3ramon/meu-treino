@@ -25,7 +25,7 @@ export function CardShop({
                     <div className="card__acoes">
                         <button
                             className={`btn__like ${produto.favorito ? "isLiked" : ""}`}
-                            onClick={() => favorited(produto.id)}
+                            onClick={() => produto.id !== undefined && favorited(produto.id)}
                         >
                             {produto.favorito ? "♥" : "♡"}
                         </button>

@@ -1,5 +1,5 @@
 export default interface Loja {
-    id: number;
+    id?: number;
     nome: string;
     preco: number;
     categoria: string;
